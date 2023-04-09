@@ -1,7 +1,29 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import { page } from "$app/stores";
   import logo from "$lib/images/svelte-logo.svg";
   import github from "$lib/images/github.svg";
+
+  $: currentTheme = "";
+
+  function toggleTheme() {
+    if (currentTheme === "light" || currentTheme === "auto") {
+      localStorage.setItem("color-schema", "dark");
+      document.documentElement.classList.add("dark");
+    } else {
+      localStorage.setItem("color-schema", "light");
+      document.documentElement.classList.remove("dark");
+    }
+    loadTheme();
+  }
+
+  function loadTheme() {
+    currentTheme = localStorage.getItem("color-schema") || "auto";
+  }
+
+  onMount(() => {
+    loadTheme();
+  });
 </script>
 
 <header>
@@ -49,10 +71,23 @@
     </svg>
   </nav>
 
-  <div class="corner">
-    <a href="https://github.com/guxuerui/svelte-template">
-      <img src={github} alt="GitHub" />
-    </a>
+  <div class="flex">
+    <button
+      class="border-0 bg-transparent icon-btn px-0 !outline-none c-gray-800 hover:c-black"
+      on:click={toggleTheme}
+    >
+      {#if currentTheme === "light" || currentTheme === "auto"}
+        <div class="scale-180" i-carbon-sun />
+      {:else}
+        <div class="scale-180" i-carbon-moon />
+      {/if}
+    </button>
+
+    <div class="corner">
+      <a href="https://github.com/guxuerui/svelte-template">
+        <img src={github} alt="GitHub" />
+      </a>
+    </div>
   </div>
 </header>
 
