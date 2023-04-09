@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@fontsource/fira-mono': ^4.5.10
+  '@iconify-json/carbon': ^1.1.16
   '@iconify-json/logos': ^1.1.19
   '@iconify/utils': ^2.0.6
   '@neoconfetti/svelte': ^1.0.0
@@ -32,6 +33,7 @@ dependencies:
 
 devDependencies:
   '@fontsource/fira-mono': 4.5.10
+  '@iconify-json/carbon': 1.1.16
   '@iconify-json/logos': 1.1.19
   '@iconify/utils': 2.0.6
   '@neoconfetti/svelte': 1.0.0
@@ -817,6 +819,12 @@ packages:
 
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
+    dev: true
+
+  /@iconify-json/carbon/1.1.16:
+    resolution: {integrity: sha512-AD8bcnRSGA0WfcGEass2FbA0sagrUzrpFx5WchuDy3uf7yKBWumdypdQK121DH321fQDl5+zZQ26T6gC9knwUQ==}
+    dependencies:
+      '@iconify/types': 2.0.0
     dev: true
 
   /@iconify-json/logos/1.1.19:
