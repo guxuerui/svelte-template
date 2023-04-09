@@ -5,7 +5,6 @@
   import Box from "$lib/components/Box.svelte";
   import Todo from "$lib/components/Todo.svelte";
   import autosize from "svelte-autosize";
-  import Register from "$lib/components/Register.svelte";
 
   // export let data: any;
   // Fetch data
@@ -115,17 +114,6 @@
   $: remaining = todos.filter((t) => !t.done).length;
 
   let textareaValue = "";
-
-  function toggleTheme() {
-    const currentTheme = localStorage.getItem("color-schema");
-    if (!currentTheme || currentTheme === "light" || currentTheme === "auto") {
-      localStorage.setItem("color-schema", "dark");
-      document.documentElement.classList.add("dark");
-    } else {
-      localStorage.setItem("color-schema", "light");
-      document.documentElement.classList.remove("dark");
-    }
-  }
 </script>
 
 <svelte:head>
@@ -134,15 +122,6 @@
 </svelte:head>
 
 <div class="text-column">
-  <button
-    on:click={toggleTheme}
-    type="button"
-    class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg w-40 ml-12 border-0 text-sm px-5 py-2.5 text-center mb-2 cursor-pointer"
-  >
-    Toggle Theme
-  </button>
-  <Register />
-
   <h1 text="teal 6xl" border="1 dashed pink">Autosize Textarea</h1>
   <textarea class="pa-2" use:autosize bind:value={textareaValue} />
   <h1 class="text-#1DBfff">My test page</h1>
