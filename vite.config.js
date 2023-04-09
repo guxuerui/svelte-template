@@ -17,6 +17,7 @@ export default defineConfig({
     UnoCSS({
       extractors: [extractorSvelte],
       shortcuts: [
+        ['icon-btn', 'text-[0.9em] inline-block cursor-pointer select-none transition duration-200 ease-in-out hover:opacity-100 hover:text-teal-600'],
         { logo: 'i-logos:svelte-icon w-6em h-6em transform transition-800 hover:rotate-180' },
       ],
       presets: [
