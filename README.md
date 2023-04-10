@@ -2,6 +2,9 @@
 
 ```bash
 git clone https://github.com/guxuerui/svelte-template.git
+
+# clone without commit history
+npx degit guxuerui/svelte-template my-app/
 ```
 
 ## Features
