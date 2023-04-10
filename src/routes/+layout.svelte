@@ -2,10 +2,12 @@
   import Header from "./Header.svelte";
   import "uno.css";
   import "./styles.css";
+  import { browser } from "$app/environment";
+  import { goto } from "$app/navigation";
   import { fade, fly } from "svelte/transition";
   import { onMount } from "svelte";
   import { auth } from "$lib/firebase/firebase.client";
-  import { authStore } from "$lib/stores/autoStore";
+  import { authStore } from "$lib/stores/authStore";
 
   let showLogo = false;
   function toggleLogo() {
@@ -22,11 +24,23 @@
 
   onMount(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      console.log("user:", user);
       authStore.update((curr) => {
         return { ...curr, isLoading: false, currentUser: user };
       });
     });
+
+    setTimeout(() => {
+      if (
+        browser &&
+        !$authStore?.currentUser &&
+        !$authStore?.isLoading &&
+        window.location.pathname !== "/"
+      ) {
+        goto("/");
+      }
+    }, 10);
+
+    return unsubscribe;
   });
 </script>
 
