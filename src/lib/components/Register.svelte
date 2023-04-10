@@ -1,32 +1,36 @@
 <script lang="ts">
-  import type { User } from "$types/index";
+  import { authStore, authHandlers } from "$lib/stores/authStore";
   import { createEventDispatcher } from "svelte";
+  import { goto } from "$app/navigation";
 
   const dispatch = createEventDispatcher();
 
-  let registerForm: User = {
-    email: "",
-    password: "",
-    confirmPassword: "",
-  };
+  let email = "";
+  let password = "";
+  let confirmPassword = "";
 
-  function submit() {
-    if (
-      !registerForm["email"] ||
-      !registerForm["password"] ||
-      !registerForm["confirmPassword"]
-    ) {
+  async function handleSubmit() {
+    if (!email || !password || !confirmPassword) {
       throw new Error("参数不全!!");
     }
-    if (registerForm["password"] !== registerForm["confirmPassword"]) {
-      throw new Error("密码输入不一致!!");
+
+    if (password === confirmPassword) {
+      try {
+        await authHandlers.signup(email, password);
+
+        if ($authStore.currentUser) {
+          alert("注册成功!");
+          email = "";
+          password = "";
+          confirmPassword = "";
+          goto("/about");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      throw new Error("两次密码输入不一致!!");
     }
-    alert("注册成功!");
-    Object.keys(registerForm).forEach((key) => {
-      // @ts-expect-error required
-      registerForm[key] = "";
-    });
-    goBack();
   }
 
   function goBack() {
@@ -62,8 +66,8 @@
         >邮箱</label
       >
       <input
-        bind:value={registerForm.email}
-        type="text"
+        bind:value={email}
+        type="email"
         id="input-group-1"
         class="bg-gray-50 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="name@gmail.com"
@@ -76,7 +80,7 @@
         >密码</label
       >
       <input
-        bind:value={registerForm.password}
+        bind:value={password}
         type="password"
         id="password"
         class="bg-gray-50 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -91,7 +95,7 @@
         >确认密码</label
       >
       <input
-        bind:value={registerForm.confirmPassword}
+        bind:value={confirmPassword}
         type="password"
         id="confirm_password"
         class="bg-gray-50 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -101,7 +105,8 @@
     </div>
     <div class="register-btn flex items-center justify-center">
       <button
-        on:click={submit}
+        on:click={handleSubmit}
+        on:keydown={handleSubmit}
         type="button"
         class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium border-0 rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 cursor-pointer w-40"
       >
