@@ -3,6 +3,9 @@
   import { page } from "$app/stores";
   import logo from "$lib/images/svelte-logo.svg";
   import github from "$lib/images/github.svg";
+  import { browser } from "$app/environment";
+  import { authStore } from "$lib/stores/authStore";
+  import { goto } from "$app/navigation";
 
   $: currentTheme = "";
 
@@ -19,6 +22,14 @@
 
   function loadTheme() {
     currentTheme = localStorage.getItem("color-schema") || "auto";
+  }
+
+  function isLogin() {
+    if (browser && !$authStore?.currentUser) {
+      alert("需要登录!");
+      return;
+    }
+    goto("/about");
   }
 
   onMount(() => {
@@ -41,8 +52,16 @@
       <li aria-current={$page.url.pathname === "/" ? "page" : undefined}>
         <a href="/">Home</a>
       </li>
-      <li aria-current={$page.url.pathname === "/about" ? "page" : undefined}>
-        <a href="/about">About</a>
+      <li
+        aria-current={$page.url.pathname === "/about" ? "page" : undefined}
+        class="flex items-center"
+      >
+        <button
+          class="border-0 bg-none cursor-pointer hover:text-#ff3e00 transition-colors"
+          on:click={isLogin}
+        >
+          About
+        </button>
       </li>
       <li
         aria-current={$page.url.pathname.startsWith("/sverdle")
