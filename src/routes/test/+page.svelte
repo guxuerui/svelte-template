@@ -114,6 +114,11 @@
   $: remaining = todos.filter((t) => !t.done).length;
 
   let textareaValue = "";
+
+  // input value
+  let value = "Hello World";
+
+  let isOpen = false;
 </script>
 
 <svelte:head>
@@ -122,6 +127,21 @@
 </svelte:head>
 
 <div class="text-column">
+  <details bind:open={isOpen}>
+    <summary>Details</summary>
+    <p>Something small enough to escape casual notice.</p>
+  </details>
+
+  <input type="radio" bind:group={value} value="Plain" />
+  <input type="radio" bind:group={value} value="Whole wheat" />
+  <input type="radio" bind:group={value} value="Spinach" />
+
+  <input
+    on:input={() => console.log("Old value:", value)}
+    bind:value
+    on:input={() => console.log("New value:", value)}
+  />
+
   <h1 text="teal 6xl" border="1 dashed pink">Autosize Textarea</h1>
   <textarea class="pa-2" use:autosize bind:value={textareaValue} />
   <h1 class="text-#1DBfff">My test page</h1>
