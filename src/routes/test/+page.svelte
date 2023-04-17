@@ -5,6 +5,7 @@
   import Box from "$lib/components/Box.svelte";
   import Todo from "$lib/components/Todo.svelte";
   import autosize from "svelte-autosize";
+  import { clipboard } from "$lib/actions/clipboard";
 
   // export let data: any;
   // Fetch data
@@ -113,7 +114,7 @@
 
   $: remaining = todos.filter((t) => !t.done).length;
 
-  let textareaValue = "";
+  let textareaValue = "I am an textarea";
 
   // input value
   let value = "Hello World";
@@ -127,6 +128,33 @@
 </svelte:head>
 
 <div class="text-column">
+  <h1>Case1</h1>
+  <div border="1 dashed pink" pa-4 text-orange data-clipboard="exampleElement">
+    {textareaValue}
+  </div>
+
+  <button
+    my-4
+    use:clipboard={{
+      element: "exampleElement",
+      fn: () => console.log("copied html!"),
+    }}>Copy Html</button
+  >
+
+  <h1>Case2</h1>
+  <input type="text" bind:value data-clipboard="exampleInput" />
+
+  <button
+    use:clipboard={{
+      input: "exampleInput",
+      fn: () => console.log("copied input value!"),
+    }}>Copy Input Value</button
+  >
+
+  <h1>Case3</h1>
+  <button my-4 use:clipboard={{ value, fn: () => console.log("copied!") }}
+    >COPY normal value</button
+  >
   <details bind:open={isOpen}>
     <summary>Details</summary>
     <p>Something small enough to escape casual notice.</p>
