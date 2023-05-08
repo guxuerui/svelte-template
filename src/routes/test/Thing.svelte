@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
 	// `current` is updated whenever the prop value changes...
-	export let current: string = 'cyan';
+	export let current = 'cyan';
 
   const dispatch = createEventDispatcher()
 	// ...but `initial` is fixed upon initialisation
