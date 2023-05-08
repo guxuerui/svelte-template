@@ -129,5 +129,13 @@
   text="center"
   bg="transparent"
   border="~ rounded gray-200 dark:gray-700"
-  focus="ring-green-400"
+  outline="none"
+  transition-colors
 />
+
+<style>
+  #input:focus {
+    color: teal !important;
+    border: 1px solid limegreen !important;
+  }
+</style>
