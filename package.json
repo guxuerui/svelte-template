@@ -37,6 +37,7 @@
   "type": "module",
   "dependencies": {
     "firebase": "^9.17.1",
+    "idb-keyval": "^6.2.1",
     "svelte-autosize": "^1.1.0"
   }
 }
