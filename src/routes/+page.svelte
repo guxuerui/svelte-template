@@ -3,6 +3,7 @@
   import welcome from "$lib/images/svelte-welcome.webp";
   import welcome_fallback from "$lib/images/svelte-welcome.png";
   import Auth from "$lib/components/Auth.svelte";
+  import ToggleTheme from "$lib/components/ToggleTheme.svelte";
 </script>
 
 <svelte:head>
@@ -12,6 +13,7 @@
 
 <section>
   <Auth />
+  <ToggleTheme />
   <h1>
     <span class="welcome">
       <picture>
