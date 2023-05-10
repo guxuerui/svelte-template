@@ -44,7 +44,7 @@
   });
 </script>
 
-<div class="app">
+<div class="app dark:bg-gray-900">
   <Header />
 
   <main>
